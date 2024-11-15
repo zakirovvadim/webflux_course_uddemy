@@ -47,12 +47,12 @@ public class Lec01CustomerRepositoryTest extends AbstractTest {
     }
 
     @Test
-    public void findByEmailEndsOf(String str) {
+    public void findByEmailEndsOf() {
         this.customerRepository
-                .findByEmailLike("%" + str)
+                .findByEmailLike("%" + "ia@example.com")
                 .doOnNext(c -> log.info("{}", c))
                 .as(StepVerifier::create)
-                .expectNextCount(1)
+                .expectNextCount(2)
                 .expectComplete()
                 .verify();
     }
