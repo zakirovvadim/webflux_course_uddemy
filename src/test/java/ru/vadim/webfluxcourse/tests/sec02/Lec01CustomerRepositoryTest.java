@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import reactor.test.StepVerifier;
+import ru.vadim.webfluxcourse.sec02.entity.Customer;
 import ru.vadim.webfluxcourse.sec02.repository.CustomerRepository;
 
 @Slf4j
@@ -52,6 +53,36 @@ public class Lec01CustomerRepositoryTest extends AbstractTest {
                 .doOnNext(c -> log.info("{}", c))
                 .as(StepVerifier::create)
                 .expectNextCount(1)
+                .expectComplete()
+                .verify();
+    }
+
+    @Test
+    public void insertAndDeleteConsumer() {
+        Customer customer = new Customer();
+        customer.setName("nastya");
+        customer.setEmail("nastya@gmail.com");
+
+        this.customerRepository
+                .save(customer)
+                .doOnNext(c -> log.info("{}", c))
+                .as(StepVerifier::create)
+                .assertNext(c -> Assertions.assertNotNull(c.getId()))
+                .expectComplete()
+                .verify();
+
+        this.customerRepository
+                .findById(11)
+                .as(StepVerifier::create)
+                .expectNextCount(1)
+                .expectComplete()
+                .verify();
+
+        this.customerRepository
+                .deleteById(11)
+                .then(this.customerRepository.count())
+                .as(StepVerifier::create)
+                .expectNext(10L)
                 .expectComplete()
                 .verify();
     }
