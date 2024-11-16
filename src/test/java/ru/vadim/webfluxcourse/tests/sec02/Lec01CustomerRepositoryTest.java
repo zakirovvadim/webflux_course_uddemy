@@ -14,6 +14,7 @@ public class Lec01CustomerRepositoryTest extends AbstractTest {
     @Autowired
     private CustomerRepository customerRepository;
 
+
     @Test
     public void findAll() {
         this.customerRepository.findAll()
