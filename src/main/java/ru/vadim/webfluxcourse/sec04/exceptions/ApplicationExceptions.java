@@ -8,7 +8,7 @@ public class ApplicationExceptions {
         return Mono.error(new CustomerNotFoundException(id));
     }
     public static <T>Mono<T> missingName() {
-        return Mono.error(new InvalidInputException("Nami is required"));
+        return Mono.error(new InvalidInputException("Name is required"));
     }
     public static <T>Mono<T> missingValidEmail() {
         return Mono.error(new InvalidInputException("Email is required "));
