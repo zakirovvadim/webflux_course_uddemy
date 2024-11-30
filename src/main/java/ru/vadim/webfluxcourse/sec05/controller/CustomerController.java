@@ -4,10 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import ru.vadim.webfluxcourse.sec04.validation.RequestValidator;
 import ru.vadim.webfluxcourse.sec05.dto.CustomerDto;
 import ru.vadim.webfluxcourse.sec05.exceptions.ApplicationExceptions;
 import ru.vadim.webfluxcourse.sec05.service.CustomerService;
+import ru.vadim.webfluxcourse.sec05.validation.RequestValidator;
 
 import java.util.List;
 
@@ -21,6 +21,11 @@ public class CustomerController {
     public Flux<CustomerDto> allCustomers() {
         return this.customerService.getAllCustomers();
     }
+
+//    @GetMapping
+//    public Flux<CustomerDto> allCustomers(@RequestAttribute("category) Category category) { если хотим получить атрибуты из фильтров, можем передать их в контроллере
+//        return this.customerService.getAllCustomers();
+//    }
 
     @GetMapping("paginated")
     public Mono<List<CustomerDto>> allCustomers(@RequestParam(defaultValue = "1") Integer page,
