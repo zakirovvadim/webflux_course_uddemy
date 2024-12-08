@@ -8,7 +8,7 @@ import ru.vadim.webfluxcourse.tests.sec07.dto.Product;
 /*
 Для атворизации используется передача в заголовки, например для базоваой, или для бирер h.setBearer()
  */
-public class Lec07BearerAuthTest extends AbstractWebClient {
+public class Lec08BearerAuthTest extends AbstractWebClient {
 
     private final WebClient client = createWebClient(b -> b.defaultHeaders(h -> h.setBearerAuth("")));
 
