@@ -24,7 +24,6 @@ public class DataSetupService implements CommandLineRunner {
                 .delayElements(Duration.ofSeconds(1))
                 .map(i -> {
                     ProductDto productDto = new ProductDto(null, "product-" + i, ThreadLocalRandom.current().nextInt(1, 100));
-                    log.info(productDto.toString());
                     return productDto;
                 })
                 .map(dto -> this.productService.saveProducts(Mono.just(dto)))

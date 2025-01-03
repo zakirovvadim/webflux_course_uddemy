@@ -26,15 +26,16 @@ public class ProductController {
         return productService.saveProducts(mono);
     }
 
-    // Для стриминга вводим в браузере путь до этого эндопоинта и дергаем метод сохранения. В бразуере появляется запись.
-//    @GetMapping(value = "stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-//    public Flux<ProductDto> productStream() {
-//        return productService.productStream();
-//    }
+//     Для стриминга вводим в браузере путь до этого эндопоинта и дергаем метод сохранения. В бразуере появляется запись.
+    @GetMapping(value = "stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<ProductDto> productStream() {
+        return productService.productStream();
+    }
 
     @GetMapping(value = "/stream/{maxPrice}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<ProductDto> productStream(@PathVariable Integer maxPrice) {
         return productService.productStream()
-                .filter(dto -> dto.getPrice() <= maxPrice);
+                .filter(dto -> dto.getPrice() <= maxPrice)
+                .doOnNext(dto -> log.info(dto.toString()));
     }
 }
